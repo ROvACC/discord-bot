@@ -1,10 +1,12 @@
 import { DiscordModule } from '@discord-nestjs/core';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import configuration from './config/configuration';
 import { DiscordConfigService } from './services/discord-config.service';
+import { HealthCheckController } from './controllers/healthcheck.controller';
+import { TerminusModule } from '@nestjs/terminus';
+import { BotModule } from './bot/bot.module';
+import { BotSlashCommandsModule } from './bot/bot-slash-commands.module';
 
 @Module({
   imports: [
@@ -16,8 +18,10 @@ import { DiscordConfigService } from './services/discord-config.service';
     DiscordModule.forRootAsync({
       useClass: DiscordConfigService,
     }),
+    TerminusModule,
+    BotModule,
+    BotSlashCommandsModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [HealthCheckController],
 })
 export class AppModule {}
