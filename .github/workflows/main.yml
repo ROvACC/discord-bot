@@ -27,7 +27,7 @@ jobs:
       if: contains(github.ref, 'master') != true
 
     - name: "Sets environment"
-      run: echo "ENVIRONMENT=production"
+      run: echo "ENVIRONMENT=production" >> $GITHUB_ENV
       if: contains(github.ref, 'master') 
 
     - id: 'auth'
