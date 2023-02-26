@@ -6,7 +6,7 @@ on:
   push:
     branches: 
       - master
-      - add-github-action
+      - test-gcp
   pull_request: 
     branches:
       - master
