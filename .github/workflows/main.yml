@@ -6,7 +6,6 @@ on:
   push:
     branches: 
       - master
-      - test-gcp
   pull_request: 
     branches:
       - master
@@ -21,14 +20,14 @@ jobs:
     - name: Set outputs
       id: vars
       run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
-    
-    - name: "Sets environment"
-      run: echo "ENVIRONMENT=staging" >> $GITHUB_ENV
-      if: contains(github.ref, 'master') != true
 
-    - name: "Sets environment"
+    - name: "Sets environment if staging"
+      run: echo "ENVIRONMENT=staging" >> $GITHUB_ENV
+      if: github.ref != 'refs/heads/master'
+
+    - name: "Sets environment if production"
       run: echo "ENVIRONMENT=production" >> $GITHUB_ENV
-      if: contains(github.ref, 'master') 
+      if: github.ref == 'refs/heads/master'
 
     - id: 'auth'
       uses: 'google-github-actions/auth@v1'
@@ -53,3 +52,9 @@ jobs:
       run: |
         docker build -t $IMAGE_NAME .
         docker push $IMAGE_NAME
+
+    - id: 'deploy'
+      uses: 'google-github-actions/deploy-cloudrun@v1'
+      with:
+        service: 'discord-bot-production'
+        image: 'europe-west1-docker.pkg.dev/${{ secrets.GOOGLE_CLOUD_PROJECT_ID }}/discord-bot/${{ env.ENVIRONMENT }}'
