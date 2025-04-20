@@ -36,9 +36,9 @@ export class RovaccService {
   async getOnlineFlights(): Promise<OnlineFlightsApiResponse[]> {
     const { data } = await firstValueFrom(
       this.httpService
-        .get<OnlineFlightsApiResponse[]>(
-          `${this.coreHttpEndpoint}/vatsim/live-flights`,
-        )
+        .get<
+          OnlineFlightsApiResponse[]
+        >(`${this.coreHttpEndpoint}/vatsim/live-flights`)
         .pipe(
           catchError((error: AxiosError) => {
             this.logger.error(error.response.data);
@@ -52,9 +52,9 @@ export class RovaccService {
   async getFutureBookings(): Promise<FutureBookingsApiResponse[]> {
     const { data } = await firstValueFrom(
       this.httpService
-        .get<FutureBookingsApiResponse[]>(
-          `${this.coreHttpEndpoint}/vatsim/future-bookings`,
-        )
+        .get<
+          FutureBookingsApiResponse[]
+        >(`${this.coreHttpEndpoint}/vatsim/future-bookings`)
         .pipe(
           catchError((error: AxiosError) => {
             this.logger.error(error.response.data);

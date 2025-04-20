@@ -1,5 +1,6 @@
 import { Command, Handler } from '@discord-nestjs/core';
 import { APIEmbedField, InteractionReplyOptions } from 'discord.js';
+import { MessageFlags } from 'discord.js';
 import { Injectable, Logger } from '@nestjs/common';
 import { RovaccService } from '../services/rovacc.service';
 import { OnlineAtcApiResponse } from '../types';
@@ -19,9 +20,8 @@ export class AtcCommand {
   async onCommand(): Promise<InteractionReplyOptions> {
     this.logger.log('ATC command received');
     const content = await this.rovaccService.getOnlineAtc();
-    console.log(content);
     return {
-      ephemeral: true,
+      flags: MessageFlags.Ephemeral,
       embeds: [
         {
           title: 'ONLINE ATC',
