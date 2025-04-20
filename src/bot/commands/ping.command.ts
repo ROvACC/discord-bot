@@ -1,5 +1,6 @@
 import { Command, Handler } from '@discord-nestjs/core';
 import { InteractionReplyOptions } from 'discord.js';
+import { MessageFlags } from 'discord.js';
 import { Injectable, Logger } from '@nestjs/common';
 
 @Command({
@@ -13,7 +14,7 @@ export class PingCommand {
   onCommand(): InteractionReplyOptions {
     this.logger.log('Ping command received');
     return {
-      ephemeral: true,
+      flags: MessageFlags.Ephemeral,
       content: 'Pong!',
     };
   }

@@ -1,5 +1,9 @@
 import { Command, Handler } from '@discord-nestjs/core';
-import { APIEmbedField, InteractionReplyOptions } from 'discord.js';
+import {
+  MessageFlags,
+  APIEmbedField,
+  InteractionReplyOptions,
+} from 'discord.js';
 import { Injectable, Logger } from '@nestjs/common';
 import { RovaccService } from '../services/rovacc.service';
 import { FutureBookingsApiResponse } from '../types';
@@ -19,9 +23,8 @@ export class BookingListCommand {
   async onCommand(): Promise<InteractionReplyOptions> {
     this.logger.log('Booking list command received');
     const content = await this.rovaccService.getFutureBookings();
-    console.log(content);
     return {
-      ephemeral: true,
+      flags: MessageFlags.Ephemeral,
       embeds: [
         {
           title: 'BOOKINGS IN THE NEXT 48 HOURS',

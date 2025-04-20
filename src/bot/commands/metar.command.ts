@@ -5,7 +5,7 @@ import {
   Param,
 } from '@discord-nestjs/core';
 import { SlashCommandPipe } from '@discord-nestjs/common';
-import { InteractionReplyOptions } from 'discord.js';
+import { InteractionReplyOptions, MessageFlags } from 'discord.js';
 import { Injectable, Logger } from '@nestjs/common';
 import { VatsimService } from '../services/vatsim.service';
 
@@ -31,7 +31,7 @@ export class MetarCommand {
     this.logger.log(`Metar command received for ${options.icao}`);
     const metar = await this.vatsimService.getMetar(options.icao);
     return {
-      ephemeral: true,
+      flags: MessageFlags.Ephemeral,
       embeds: [
         {
           title: `METAR FOR ${options.icao}`,

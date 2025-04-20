@@ -1,5 +1,9 @@
 import { Command, Handler } from '@discord-nestjs/core';
-import { APIEmbedField, InteractionReplyOptions } from 'discord.js';
+import {
+  MessageFlags,
+  APIEmbedField,
+  InteractionReplyOptions,
+} from 'discord.js';
 import { Injectable, Logger } from '@nestjs/common';
 import { RovaccService } from '../services/rovacc.service';
 import { OnlineFlightsApiResponse } from '../types';
@@ -20,7 +24,7 @@ export class FlightsCommand {
     this.logger.log('Live Flight command received');
     const content = await this.rovaccService.getOnlineFlights();
     return {
-      ephemeral: true,
+      flags: MessageFlags.Ephemeral,
       embeds: [
         {
           title: 'ONLINE FLIGHTS',
