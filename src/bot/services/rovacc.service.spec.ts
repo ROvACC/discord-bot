@@ -14,7 +14,6 @@ import {
 describe('RovaccService', () => {
   let service: RovaccService;
   let httpService: HttpService;
-  let configService: ConfigService;
 
   const mockCoreHttpEndpoint = 'https://api.example.com';
 
@@ -44,7 +43,6 @@ describe('RovaccService', () => {
 
     service = module.get<RovaccService>(RovaccService);
     httpService = module.get<HttpService>(HttpService);
-    configService = module.get<ConfigService>(ConfigService);
   });
 
   it('should be defined', () => {

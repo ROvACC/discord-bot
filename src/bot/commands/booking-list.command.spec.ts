@@ -20,7 +20,9 @@ describe('BookingListCommand', () => {
 
   beforeEach(() => {
     // Create an instance of BookingListCommand with the mock RovaccService
-    command = new BookingListCommand(mockRovaccService as unknown as RovaccService);
+    command = new BookingListCommand(
+      mockRovaccService as unknown as RovaccService,
+    );
 
     // Clear mock calls between tests
     jest.clearAllMocks();
